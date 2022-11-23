@@ -1,6 +1,7 @@
 import cv2
 import imutils
 import pytesseract
+from datetime import datetime
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
@@ -105,7 +106,12 @@ cv2.imshow("Cropped Image ", cv2.imread(crop_img_loc))
 
 # Convert Image to text
 text = pytesseract.image_to_string(crop_img_loc,lang='eng')
-print(text)
+if text:
+    now = datetime.now()
+    date_time = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(date_time, ' : ', text)
+else:
+    print("No text found")
 cv2.waitKey(0)
 
 
